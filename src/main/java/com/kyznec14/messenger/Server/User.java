@@ -1,8 +1,9 @@
 package com.kyznec14.messenger.Server;
 
-/**
- * Created by kyznec14 on 5/5/17.
- */
+
+import javax.security.auth.login.FailedLoginException;
+import javax.security.auth.login.LoginException;
+
 public class User {
     private String name;
     private String id;
@@ -18,13 +19,24 @@ public class User {
     }
 
     User(String name, String id, String password){
-
+    this.name=name;
+    this.id=id;
+    this.password=password;
     }
     public String getName(){
         return name;
     }
     public String getId(){
         return id;
+    }
+    public void changePassword(String oldPassword,String newPassword) throws LoginException
+    {
+        if (this.password==oldPassword){
+            this.password=newPassword;
+        }
+        else {
+            throw new FailedLoginException("WRONG PASSWORD");
+        }
     }
 
     @Override
